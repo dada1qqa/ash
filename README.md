@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flores Amarillas &lt;3</title>
+    <link rel="stylesheet" href="Css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans:ital@1&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inclusive Sans', sans-serif;
+            background: linear-gradient(70deg, blue, purple, pink);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 100px;
+        }
+
+        .Con-2, .Con-Opciones, .Con-Corazon {
+            display: none;
+        }
+
+        canvas {
+            display: block;
+        }
+
+        .Contenedor {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .Con {
+            display: flex;
+            place-content: center;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .Texto {
+            display: none;
+        }
+
+        .Texto h2 {
+            font-size: 50px;
+        }
+
+        #B12 {
+            margin-left: 30px;
+        }
+
+        .Button {
+            font-family: monospace;
+            font-size: x-large;
+            transition-duration: 0.2s;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: greenyellow; 
+            color: black; 
+            border: 2px solid green;
+            cursor: pointer;
+        }
+
+        .Button:hover {
+            transform: scale(1.1);
+            border-radius: 14px;
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+            color: black;
+            background-color: white;
+        }
+
+        .Contenedor-Binicio {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .Con-Emergente {
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            display: flex;
+        }
+
+        .cua {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            padding: 30px;
+            background-color: #f9f9f9;
+            border: 2px solid greenyellow;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            animation: aparecer 0.5s ease-out;
+        }
+
+        @keyframes aparecer {
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-20px);
+            }
+            50% {
+                opacity: 0.5;
+                transform: translateX(-50%) translateY(-10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        .Corazon {
+            font-size: 100px; /* Tamaño ajustado */
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        .Corazon span {
+            font-size: 30px; /* Tamaño del texto "Daniel + Ashly" */
+        }
+
+        @media (max-width: 468px) {
+            body {
+                background: linear-gradient(100deg, blue, purple, pink);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="Contenedor-Binicio">
+        <button class="Button" id="BVer"> Clicka aquí </button>
+    </div>
+
+    <div class="Con-Emergente">
+        <div id="resultado" class="cua">
+            <p id="res">
+                ashly se que no eh sido el mejor pero queria darte tus 
+                flores amarillas como quiera &lt;3
+            </p>    
+            <button id="BotonCerrar" class="Button">Cerrar</button>
+        </div>
+    </div>
+
+    <div class="Con-2">
+        <h1 id="Titulo"> Elije una Opcion </h1>
+        <div class="Con">
+            <button class="Button" id="B1"> 1 Flor </button>
+            <button class="Button" id="B12"> 12 Flores :) </button>
+        </div>
+    </div>
+
+    <main class="Contenedor">
+        <canvas id="Flor" class="Flor" width="800" height="600"></canvas>
+
+        <div class="Texto">
+            <h2 id="Text">Para la niña más Linda del Mundo.</h2>
+        </div>
+
+        <div class="Con-Opciones">
+            <h2>¿yo quisiera saber si es posible que me des la oportunidad de estar contigo otraves?te amo ashly</h2>
+            <p id="ErrorMensaje" style="display: none;">Ha ocurrido un error. Por favor, presiona Sí. 😢</p>
+            <button class="Button" id="Si">Sí</button>
+            <button class="Button" id="No">No</button>
+        </div>
+
+        <div class="Con-Corazon">
+            <div class="Corazon">❤️ <span>Daniel + Ashly</span></div>
+        </div>
+
+    </main>
+
+    <script>
+        document.getElementById("BVer").addEventListener('click', function() {
+            document.getElementById("resultado").style.display = "block";
+        });
+
+        document.getElementById("BotonCerrar").addEventListener('click', function() {
+            document.getElementById("resultado").style.display = "none";
+            document.querySelector(".Contenedor-Binicio").style.display = "none";
+            document.querySelector(".Con-2").style.display = "block";
+        });
+
+        let Titulo = document.title;
+
+        window.addEventListener('blur', () => {
+            Titulo = document.title;
+            document.title = "No te vallas, regresa :(";
+        });
+
+        window.addEventListener('focus', () => {
+            document.title = Titulo;
+        });
+
+        let h1 = document.getElementById("Titulo");
+        let Boton1 = document.getElementById("B1");
+        Boton1.addEventListener('click', function() {
+            const ContenedorBotones = document.querySelector(".Con");
+            document.querySelector(".Texto").style.display = "block";
+            ContenedorBotones.style.display = "none";
+            DibujarFlor(400, 300, 6, 25, 50, 100); // Primera flor
+            h1.remove();
+            mostrarOpciones();
+        });
+
+        document.getElementById("B12").addEventListener('click', function() {
+            const ContenedorBotones = document.querySelector(".Con");
+            ContenedorBotones.style.display = "none";
+            document.querySelector(".Texto").style.display = "block";
+            CrearVarias(); // Flores organizadas
+            h1.remove();
+            mostrarOpciones();
+        });
+
+        const canvas = document.getElementById('Flor');
+        const ctx = canvas.getContext('2d');
+
+        function DibujarPetalo(x, y, RadioX, RadioY, Rotacion, color) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(Rotacion);
+            ctx.beginPath();
+            ctx.ellipse(0, 0, RadioX, RadioY, 0, 0, Math.PI * 2);
+            ctx.fillStyle = color;
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function DibujarFlor(x, y, NumeroPetalos, RadioXPetalo, RadioYPetalo, AltoTrazo) {
+            const PasosTallo = 50;
+            const AltoTallo = AltoTrazo / PasosTallo;
+            let NuevaY = y;
+
+            const DibujarTallo = () => {
+                if (NuevaY < y + AltoTrazo) {
+                    ctx.beginPath();
+                    ctx.moveTo(x, y);
+                    ctx.lineTo(x, NuevaY);
+                    ctx.lineWidth = 3;
+                    ctx.strokeStyle = 'black';
+                    ctx.stroke();
+                    NuevaY += AltoTallo;
+                    setTimeout(DibujarTallo, 100);
+                } else {
+                    const AnguloIncrement = (Math.PI * 2) / NumeroPetalos;
+
+                    for (let i = 0; i < NumeroPetalos; i++) {
+                        const Angulo = i * AnguloIncrement;
+                        const PetaloX = x + Math.cos(Angulo) * 30;
+                        const PetaloY = y + Math.sin(Angulo) * 30;
+                        DibujarPetalo(PetaloX, PetaloY, RadioXPetalo, RadioYPetalo, Angulo, 'yellow');
+                    }
+                    ctx.beginPath();
+                    ctx.arc(x, y, 20, 0, Math.PI * 2);
+                    ctx.fillStyle = 'green';
+                    ctx.fill();
+                }
+            };
+
+            DibujarTallo();
+        }
+
+        function CrearVarias() {
+            const posiciones = [
+                { x: 100, y: 200, petalos: 6 },
+                { x: 250, y: 200, petalos: 6 },
+                { x: 400, y: 200, petalos: 6 },
+                { x: 550, y: 200, petalos: 6 },
+                { x: 700, y: 200, petalos: 6 },
+                { x: 175, y: 350, petalos: 6 },
+                { x: 325, y: 350, petalos: 6 },
+                { x: 475, y: 350, petalos: 6 },
+                { x: 625, y: 350, petalos: 6 },
+                { x: 250, y: 500, petalos: 6 },
+                { x: 400, y: 500, petalos: 6 },
+                { x: 550, y: 500, petalos: 6 },
+            ];
+
+            posiciones.forEach(pos => {
+                DibujarFlor(pos.x, pos.y, pos.petalos, 25, 40, 100);
+            });
+        }
+
+        function mostrarOpciones() {
+            document.querySelector(".Con-Opciones").style.display = "block";
+        }
+
+        document.getElementById("Si").addEventListener('click', function() {
+            document.querySelector(".Con-Opciones").style.display = "none";
+            document.querySelector(".Con-Corazon").style.display = "block";
+        });
+
+        document.getElementById("No").addEventListener('click', function() {
+            document.getElementById("ErrorMensaje").style.display = "block";
+        });
+    </script>
+
+</body>
+</html>
